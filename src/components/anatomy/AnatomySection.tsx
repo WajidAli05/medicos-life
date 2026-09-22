@@ -63,6 +63,14 @@ export default function AnatomySection({ id, kind, eyebrow, title, intro, points
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  // mobile: make sure the whole model window (and the sheet inside it) is on screen
+  useEffect(() => {
+    if (floating || !active || !panel.current) return;
+    const r = panel.current.getBoundingClientRect();
+    const overflow = r.bottom - window.innerHeight + 12;
+    if (overflow > 0) window.scrollBy({ top: Math.min(overflow, r.top - 12), behavior: "smooth" });
+  }, [active, floating]);
+
   const turn = (angle: number) => setTurnTo((prev) => ({ angle, nonce: (prev?.nonce ?? 0) + 1 }));
   const pick = (p: MapPoint) => {
     setActive(active === p.id ? null : p.id);
@@ -138,17 +146,17 @@ export default function AnatomySection({ id, kind, eyebrow, title, intro, points
 
             {mounted && (
               <SceneBoundary onError={() => setFailed(true)}>
-                <AnatomyScene kind={kind} state={state} running={running} turnTo={turnTo} dark={dark} />
+                <AnatomyScene kind={kind} state={state} running={running} turnTo={turnTo} dark={dark} lift={!floating && activeIndex >= 0} />
               </SceneBoundary>
             )}
 
-            <div className={`pointer-events-none absolute left-5 top-5 flex items-center gap-2 rounded-full px-3 py-1.5 text-xs backdrop-blur ${dark ? "bg-white/10" : "bg-white/60"}`}>
+            <div className={`pointer-events-none absolute left-5 top-5 z-[75] lg:z-auto flex items-center gap-2 rounded-full px-3 py-1.5 text-xs backdrop-blur ${dark ? "bg-white/10" : "bg-white/60"}`}>
               <Hand className="size-3.5" />
               <span className="hidden sm:inline">Drag to rotate · tap a red point</span>
               <span className="sm:hidden">Drag · tap</span>
             </div>
 
-            <div className="absolute right-4 top-4 flex gap-1.5">
+            <div className="absolute right-4 top-4 z-[75] lg:z-auto flex gap-1.5">
               {views.map((v) => (
                 <button key={v.label} onClick={() => turn(v.angle)} className={`rounded-full px-3.5 py-1.5 text-xs font-semibold backdrop-blur transition ${t.btn}`}>
                   {v.label}
@@ -160,23 +168,29 @@ export default function AnatomySection({ id, kind, eyebrow, title, intro, points
             </div>
 
             {credit && <div className={`absolute bottom-3 right-5 text-[0.62rem] ${t.muted}`}>{credit}</div>}
-          </div>
 
-          {/* mobile / tablet: details slide in beneath the model */}
-          <AnimatePresence mode="wait">
-            {(!floating || failed) && activeIndex >= 0 && (
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 24, rotateX: -12 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className={`mt-4 rounded-4xl p-6 ${dark ? "bg-white/5 ring-1 ring-cream/10" : "bg-white shadow-xl shadow-ink/5"}`}
-              >
-                <PointDetails point={points[activeIndex]} index={activeIndex} onClose={() => setActive(null)} tone={dark ? "dark" : "light"} />
-              </motion.div>
-            )}
-          </AnimatePresence>
+            {/* mobile / tablet: details open inside the model window as a sheet over its lower part */}
+            <AnimatePresence mode="wait">
+              {(!floating || failed) && activeIndex >= 0 && (
+                <motion.div
+                  key={active}
+                  data-lenis-prevent
+                  role="dialog"
+                  aria-label={`${points[activeIndex].label} details`}
+                  initial={{ opacity: 0, y: "105%" }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: "105%" }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className={`absolute inset-x-2 bottom-2 z-[80] max-h-[58%] overflow-y-auto overscroll-contain rounded-4xl p-5 pt-3 shadow-[0_-20px_50px_-20px_rgb(0_0_0/0.45)] backdrop-blur-xl ${
+                    dark ? "bg-[#16302c]/95 ring-1 ring-cream/10" : "bg-white/95 ring-1 ring-ink/5"
+                  }`}
+                >
+                  <div aria-hidden className={`mx-auto mb-3 h-1 w-10 rounded-full ${dark ? "bg-cream/25" : "bg-ink/15"}`} />
+                  <PointDetails point={points[activeIndex]} index={activeIndex} onClose={() => setActive(null)} tone={dark ? "dark" : "light"} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>

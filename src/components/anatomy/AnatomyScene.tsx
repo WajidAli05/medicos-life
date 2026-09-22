@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment, Html, Lightformer, OrbitControls, useProgress } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import BodyModel from "./BodyModel";
@@ -67,9 +67,30 @@ function CameraRig({ kind, turnTo }: { kind: SceneKind; turnTo: TurnTo }) {
   return null;
 }
 
-type Props = { kind: SceneKind; state: MapState; running: boolean; turnTo: TurnTo; dark?: boolean };
+/**
+ * Mobile: while the details sheet covers the lower part of the window, shift the rendered view
+ * up (camera view offset) so the model stays visible above the sheet. Markers follow automatically.
+ */
+function ViewLift({ lift }: { lift: boolean }) {
+  const amount = useRef(0);
+  useFrame(({ camera, size }, dt) => {
+    const cam = camera as THREE.PerspectiveCamera;
+    const target = lift ? 1 : 0;
+    if (target === 0 && amount.current === 0) return;
+    amount.current = THREE.MathUtils.damp(amount.current, target, 6, dt);
+    if (target === 0 && amount.current < 0.002) {
+      amount.current = 0;
+      cam.clearViewOffset();
+      return;
+    }
+    cam.setViewOffset(size.width, size.height, 0, amount.current * size.height * 0.27, size.width, size.height);
+  });
+  return null;
+}
 
-export default function AnatomyScene({ kind, state, running, turnTo, dark }: Props) {
+type Props = { kind: SceneKind; state: MapState; running: boolean; turnTo: TurnTo; dark?: boolean; lift?: boolean };
+
+export default function AnatomyScene({ kind, state, running, turnTo, dark, lift = false }: Props) {
   const cfg = CONFIG[kind];
   // the idle spin pauses while someone drags, hovers or reads a card, and resumes after a quiet spell
   const [spin, setSpin] = useState(true);
@@ -133,6 +154,7 @@ export default function AnatomyScene({ kind, state, running, turnTo, dark }: Pro
           }}
         />
         <CameraRig kind={kind} turnTo={turnTo} />
+        <ViewLift lift={lift} />
       </MapContext.Provider>
     </Canvas>
   );

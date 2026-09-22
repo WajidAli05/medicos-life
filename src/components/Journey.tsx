@@ -17,16 +17,25 @@ export default function Journey() {
         cards.forEach((card, i) => {
           const next = cards[i + 1];
           if (!next) return;
-          // as the next card slides over, this one tips back into depth
-          const st = { trigger: next, start: "top bottom", end: "top 15%", scrub: true };
-          gsap.to(card.querySelector(".journey-inner"), {
+          // Only once the next card actually starts covering this one (its top reaches this card's
+          // bottom edge) does this card tip back and dim; fully receded when the next card has docked.
+          const inner = card.querySelector<HTMLElement>(".journey-inner")!;
+          const stickyTop = (el: HTMLElement) => parseFloat(getComputedStyle(el).top) || 0;
+          const st = {
+            trigger: next,
+            start: () => `top ${stickyTop(card) + inner.offsetHeight}px`,
+            end: () => `top ${stickyTop(next) + 4}px`,
+            scrub: true,
+            invalidateOnRefresh: true,
+          };
+          gsap.to(inner, {
             scale: 0.86,
             rotateX: -10,
             yPercent: -4,
             ease: "none",
             scrollTrigger: st,
           });
-          gsap.to(card.querySelector(".journey-shade"), { opacity: 0.7, ease: "none", scrollTrigger: st });
+          gsap.to(card.querySelector(".journey-shade"), { opacity: 0.55, ease: "power1.in", scrollTrigger: st });
         });
         gsap.to(".journey-progress", {
           scaleY: 1,
