@@ -47,6 +47,7 @@ export default function Approach() {
   return (
     <section ref={root} id="approach" className="relative bg-cream py-28 md:py-40">
       <div className="mx-auto grid max-w-7xl gap-16 px-5 md:px-8 lg:grid-cols-12 lg:gap-10">
+        {/*Comments */}
         <div className="relative lg:col-span-5">
           <div className="approach-img-a relative aspect-[4/5] w-[85%] overflow-hidden rounded-5xl">
             <Image src={sectionImages.approachMain} alt="A physiotherapist explaining spine health to a patient" fill sizes="(min-width:1024px) 35vw, 85vw" className="object-cover" />
