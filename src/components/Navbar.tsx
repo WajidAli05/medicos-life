@@ -6,7 +6,7 @@ import { Menu, Phone, X } from "lucide-react";
 import Logo from "./ui/Logo";
 import Button from "./ui/Button";
 import { clinic, nav } from "@/lib/content";
-import { DEMO } from "@/lib/site";
+import { WATERMARKS } from "@/lib/site";
 import { BANNER_H } from "./demo/DemoBanner";
 
 export default function Navbar() {
@@ -35,7 +35,7 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: hidden && !open ? -110 : 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        style={{ top: DEMO ? BANNER_H : 0 }}
+        style={{ top: WATERMARKS ? BANNER_H : 0 }}
         className="fixed inset-x-0 z-50 px-4 pt-4 md:px-6"
       >
         <nav
@@ -89,7 +89,7 @@ export default function Navbar() {
             animate={{ clipPath: "circle(150% at 92% 5%)" }}
             exit={{ clipPath: "circle(0% at 92% 5%)" }}
             transition={{ duration: 0.7, ease: [0.65, 0, 0.35, 1] }}
-            style={{ top: DEMO ? BANNER_H : 0 }}
+            style={{ top: WATERMARKS ? BANNER_H : 0 }}
             className="fixed inset-x-0 bottom-0 z-40 flex flex-col justify-end bg-evergreen px-6 pb-12 text-cream lg:hidden"
           >
             <ul className="space-y-1">

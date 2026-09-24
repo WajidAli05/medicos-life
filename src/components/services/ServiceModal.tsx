@@ -7,7 +7,7 @@ import { ArrowUpRight, CalendarClock, Check, Clock, MessageCircle, Repeat, X } f
 import { clinic } from "@/lib/content";
 import { allServices, type Service } from "@/lib/services";
 import { setScrollLocked } from "../SmoothScroll";
-import { DEMO } from "@/lib/site";
+import { WATERMARKS } from "@/lib/site";
 import { DemoTag } from "../demo/Watermark";
 
 type Ctx = { open: (id: string) => void };
@@ -85,7 +85,7 @@ function Sheet({ service: s, onClose }: { service: Service; onClose: () => void 
             <Image src={s.img} alt={s.title} fill sizes="(min-width:768px) 45vw, 100vw" className="object-cover" priority />
           </motion.div>
           <div className={`absolute inset-0 bg-gradient-to-t ${aesthetic ? "from-[#2a1c19]/90" : "from-pine/90"} via-transparent to-transparent`} />
-          {DEMO && <DemoTag className="left-6 top-6" />}
+          {WATERMARKS && <DemoTag className="left-6 top-6" />}
           <div className="absolute inset-x-6 bottom-6 text-cream md:inset-x-8 md:bottom-8">
             <p className="eyebrow text-blush">{aesthetic ? "Aesthetics" : "Physiotherapy"}</p>
             <motion.h2

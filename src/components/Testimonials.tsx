@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Quote, Star } from "lucide-react";
-import { displayName, GOOGLE_REVIEWS_URL, monthYear, reviews, reviewStats } from "@/lib/reviews";
+import { displayName, GOOGLE_REVIEWS_URL, monthYear, reviews, reviewsEyebrow, reviewsNote, reviewStats } from "@/lib/reviews";
 import SplitHeading from "./ui/SplitHeading";
 
 const AVATAR_TONES = ["bg-evergreen", "bg-clay", "bg-[#6f8f7a]", "bg-[#8a5a44]", "bg-[#3e6b64]"];
@@ -57,7 +57,7 @@ export default function Testimonials() {
     <section id="stories" className="relative overflow-hidden bg-blush/50 py-28 md:py-36">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
         <div className="text-center">
-          <p className="eyebrow mb-6 text-clay">Real Google reviews</p>
+          <p className="eyebrow mb-6 text-clay">{reviewsEyebrow}</p>
           <SplitHeading lines={["In our patients'", "*own words.*"]} className="mx-auto text-[clamp(2.5rem,5.5vw,4.6rem)] text-ink" />
 
           <a
@@ -171,6 +171,7 @@ export default function Testimonials() {
               </motion.li>
             ))}
           </ul>
+          {reviewsNote && <p className="mt-6 text-center text-xs text-muted">{reviewsNote}</p>}
         </div>
       </div>
     </section>

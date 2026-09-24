@@ -102,6 +102,8 @@ export const demoProfile: SiteProfile = {
     { author: "Sofia Romano", rating: 5, date: "2026-05-20", text: "PRP for hair thinning. Honest advice about what it could and couldn't do, which I appreciated." },
   ],
   reviewTotal: 128,
+  reviewsEyebrow: "Patient reviews",
+  reviewsNote: "Sample reviews, shown to demonstrate the design.",
   reviewsUrl: "https://www.google.com/maps/search/physiotherapy+clinic+Holborn+London",
 
   services: {

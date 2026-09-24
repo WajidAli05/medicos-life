@@ -108,6 +108,7 @@ export const clientProfile: SiteProfile = {
     { author: "Asad Ali", rating: 5, date: "2026-03-20" },
   ],
   reviewTotal: 12,
+  reviewsEyebrow: "Real Google reviews",
   reviewsUrl:
     "https://www.google.com/maps/place/Aesthetic+and+Physio+Clinic/@33.6675526,73.0742321,17z/data=!4m8!3m7!1s0x38df97e1c69fc485:0x978d6c78c70f2235!8m2!3d33.6675526!4d73.0742321!9m1!1b1",
 

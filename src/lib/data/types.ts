@@ -54,6 +54,10 @@ export type SiteProfile = {
   /** total shown next to the rating (Google counts everything, including star-only ratings) */
   reviewTotal: number;
   reviewsUrl: string;
+  /** eyebrow above the reviews section */
+  reviewsEyebrow: string;
+  /** small print under the ratings strip (e.g. to flag sample data) */
+  reviewsNote?: string;
   /** per-service price / image / copy overrides, keyed by service id */
   services: Record<string, ServiceOverride>;
 };

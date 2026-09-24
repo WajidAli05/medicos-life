@@ -1,54 +1,46 @@
-# Demo / for-sale mode
+# Demo mode
 
-This site ships in **demo mode**, which is what the public sale listing shows.
+The site ships **clean and anonymous**: the design is shown exactly as it will be delivered,
+with invented clinic data instead of any real business details.
 
-| | Demo mode (default) | Live mode |
+## Switches
+
+All three are environment variables (see `.env.example`), and all are optional.
+
+| Variable | Default | What it does |
 |---|---|---|
-| Clinic data | Invented demo clinic ("Aurelia", London) | The real clinic's data |
-| Ownership banner | Shown at the top | Hidden |
-| Watermarks | Tiled across the page + corner badge + section tags | None |
-| Right-click & image dragging | Blocked | Normal |
-| Console / source notice | Shown | None |
-| Search engines | `noindex, nofollow` | Indexable |
+| `NEXT_PUBLIC_DEMO` | `true` | `true` = anonymous demo clinic ("Aurelia", London). `false` = the real clinic's data. |
+| `NEXT_PUBLIC_WATERMARK` | `false` | `true` = "for sale" banner, tiled watermarks, corner badge, section tags, right-click guard and console notice. |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | `false` | `true` = allow search engines. Anonymous demo builds are `noindex` by default. |
 
-## Switching it off (for the buyer)
+So:
 
-One environment variable controls everything:
+- **Public sale listing (current setup):** defaults. Clean look, anonymous data, not indexed.
+- **If you want watermarks back:** `NEXT_PUBLIC_WATERMARK=true`.
+- **Buyer's live site:** `NEXT_PUBLIC_DEMO=false` and `NEXT_PUBLIC_ALLOW_INDEXING=true`.
 
-```bash
-NEXT_PUBLIC_DEMO=false
-```
+## What "anonymous" means
 
-Set it in `.env.local` (or in your host's environment settings) and rebuild. Every banner,
-watermark, guard and demo detail disappears, and the site renders the real content.
+The demo profile invents everything: clinic name, address, phone (an Ofcom fictional number),
+staff names and photos, reviews and prices. No real person or business appears.
 
 ## Where things live
 
 | What | File |
 |---|---|
-| Owner name, banner wording, listing URL | `src/lib/site.ts` |
-| Demo clinic data (names, address, reviews) | `src/lib/data/demo.ts` |
+| The switches and owner details | `src/lib/site.ts` |
+| Anonymous demo data | `src/lib/data/demo.ts` |
 | Real clinic data | `src/lib/data/client.ts` |
 | Which profile is used | `src/lib/data/index.ts` |
-| Banner | `src/components/demo/DemoBanner.tsx` |
-| Watermarks | `src/components/demo/Watermark.tsx` |
-| Right-click / console guards | `src/components/demo/DemoGuards.tsx` |
-
-To link the banner to your Flippa listing, set `listingUrl` in `src/lib/site.ts`.
+| Banner / watermarks / guards | `src/components/demo/` |
 
 ## Before you hand the repo to a buyer
 
-The real clinic's phone number, address, staff photos and Google reviews are still in the
-repository. Remove them:
+The real clinic's phone number, address, staff photos and Google reviews still exist in the
+repository even though the site doesn't show them. Remove them:
 
 1. Replace the contents of `src/lib/data/client.ts` with:
    ```ts
    export { demoProfile as clientProfile } from "./demo";
    ```
 2. Delete `public/brand/` and `public/team/` (the clinic logo and the founder's photo).
-
-## A note on what this protects
-
-The watermarks, banner and copyright notices establish ownership and make copied screenshots
-obvious. The right-click block only deters casual copying: anyone can still read the page source
-in their browser. Keep the watermarks on until the sale completes.

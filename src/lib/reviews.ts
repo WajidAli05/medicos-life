@@ -5,6 +5,8 @@ import type { Review } from "./data/types";
 export const MAX_REVIEWS = 20;
 
 export const GOOGLE_REVIEWS_URL = profile.reviewsUrl;
+export const reviewsEyebrow = profile.reviewsEyebrow;
+export const reviewsNote = profile.reviewsNote;
 export type { Review };
 
 /** The newest reviews, capped */

@@ -8,7 +8,7 @@ import { clinic, HERO_AVATARS, HERO_POSTER, HERO_VIDEO } from "@/lib/content";
 import { reviewStats } from "@/lib/reviews";
 import SplitHeading from "./ui/SplitHeading";
 import Button from "./ui/Button";
-import { DEMO } from "@/lib/site";
+import { WATERMARKS } from "@/lib/site";
 import { DemoTag } from "./demo/Watermark";
 
 export default function Hero() {
@@ -75,7 +75,7 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-pine/90 via-pine/35 to-pine/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-pine/70 via-transparent to-transparent" />
-        {DEMO && <DemoTag className="bottom-5 right-6 lg:bottom-8" />}
+        {WATERMARKS && <DemoTag className="bottom-5 right-6 lg:bottom-8" />}
 
         <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-10 md:px-8 md:pb-16">
           <div className="hero-copy max-w-3xl text-cream">

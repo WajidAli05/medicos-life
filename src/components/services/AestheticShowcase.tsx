@@ -8,7 +8,7 @@ import { aesthetic } from "@/lib/services";
 import { sectionImages } from "@/lib/content";
 import SplitHeading from "../ui/SplitHeading";
 import { useServiceModal } from "./ServiceModal";
-import { DEMO } from "@/lib/site";
+import { WATERMARKS } from "@/lib/site";
 import { DemoTag } from "../demo/Watermark";
 
 export default function AestheticShowcase() {
@@ -104,7 +104,7 @@ export default function AestheticShowcase() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1f1715] via-[#1f1715]/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#1f1715]/50 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
-              {DEMO && <DemoTag className="left-6 top-6" />}
+              {WATERMARKS && <DemoTag className="left-6 top-6" />}
               <span
                 aria-hidden
                 className="display absolute right-6 top-4 text-[clamp(5rem,11vw,10rem)] leading-none text-transparent [-webkit-text-stroke:1px_rgb(239_214_200/0.55)]"
