@@ -9,6 +9,8 @@ import SplitHeading from "../ui/SplitHeading";
 import type { MapState } from "./MapContext";
 import PointDetails from "./PointDetails";
 import SceneBoundary from "./SceneBoundary";
+import { DEMO } from "@/lib/site";
+import { DemoTag } from "../demo/Watermark";
 import type { SceneKind, TurnTo } from "./AnatomyScene";
 
 const AnatomyScene = dynamic(() => import("./AnatomyScene"), { ssr: false });
@@ -167,6 +169,7 @@ export default function AnatomySection({ id, kind, eyebrow, title, intro, points
               </button>
             </div>
 
+            {DEMO && <DemoTag className="bottom-3 left-4" tone={dark ? "dark" : "light"} />}
             {credit && <div className={`absolute bottom-3 right-5 text-[0.62rem] ${t.muted}`}>{credit}</div>}
 
             {/* mobile / tablet: details open inside the model window as a sheet over its lower part */}

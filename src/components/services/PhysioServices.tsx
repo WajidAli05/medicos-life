@@ -6,6 +6,7 @@ import { motion, useMotionTemplate, useMotionValue } from "motion/react";
 import { ArrowUpRight, HeartPulse, Home, UserRound } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { physio, type Service } from "@/lib/services";
+import { clinic } from "@/lib/content";
 import SplitHeading from "../ui/SplitHeading";
 import TiltCard from "../ui/TiltCard";
 import { useServiceModal } from "./ServiceModal";
@@ -124,13 +125,13 @@ export default function PhysioServices() {
           </div>
           <div className="lg:col-span-5">
             <p className="leading-relaxed text-muted">
-              From stroke recovery to a stubborn frozen shoulder, {physio.length} focused services led by Dr Abdur Rahman PT and team. Tap any card for what it treats and what to expect.
+              From stroke recovery to a stubborn frozen shoulder, {physio.length} focused services led by {clinic.founder} and team. Tap any card for what it treats and what to expect.
             </p>
             <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold">
               {[
                 { icon: Home, label: "Home visits" },
                 { icon: UserRound, label: "Male & female physios" },
-                { icon: HeartPulse, label: "Open 24/7" },
+                { icon: HeartPulse, label: clinic.hoursBadge },
               ].map(({ icon: Icon, label }) => (
                 <span key={label} className="flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 ring-1 ring-ink/10">
                   <Icon className="size-3.5 text-clay" /> {label}

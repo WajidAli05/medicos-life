@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { team } from "@/lib/content";
+import { team, teamNote } from "@/lib/content";
 import SplitHeading from "./ui/SplitHeading";
 import TiltCard from "./ui/TiltCard";
 import Button from "./ui/Button";
@@ -20,7 +20,7 @@ export default function Team() {
             />
           </div>
           <p className="max-w-sm leading-relaxed text-muted">
-            DPT-qualified physiotherapists and PMDC-registered doctors. Male and female clinicians available, at the clinic or at home.
+            {teamNote}
           </p>
         </div>
 

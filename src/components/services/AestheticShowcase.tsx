@@ -5,9 +5,11 @@ import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { aesthetic } from "@/lib/services";
-import { px } from "@/lib/content";
+import { sectionImages } from "@/lib/content";
 import SplitHeading from "../ui/SplitHeading";
 import { useServiceModal } from "./ServiceModal";
+import { DEMO } from "@/lib/site";
+import { DemoTag } from "../demo/Watermark";
 
 export default function AestheticShowcase() {
   const root = useRef<HTMLElement>(null);
@@ -85,7 +87,7 @@ export default function AestheticShowcase() {
             <span className="h-px w-10 bg-cream/30" /> Scroll to explore <ArrowRight className="size-4 animate-pulse" />
           </div>
           <div className="relative mt-10 hidden h-44 w-36 overflow-hidden rounded-3xl ring-1 ring-cream/10 lg:block">
-            <Image src={px(9219044, 400)} alt="" fill sizes="150px" className="object-cover" />
+            <Image src={sectionImages.aestheticIntro} alt="" fill sizes="150px" className="object-cover" />
           </div>
         </div>
 
@@ -102,6 +104,7 @@ export default function AestheticShowcase() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#1f1715] via-[#1f1715]/40 to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-r from-[#1f1715]/50 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
+              {DEMO && <DemoTag className="left-6 top-6" />}
               <span
                 aria-hidden
                 className="display absolute right-6 top-4 text-[clamp(5rem,11vw,10rem)] leading-none text-transparent [-webkit-text-stroke:1px_rgb(239_214_200/0.55)]"

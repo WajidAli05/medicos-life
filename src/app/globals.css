@@ -87,6 +87,17 @@ body {
 .split-line { display: block; overflow: hidden; padding-bottom: 0.08em; }
 .split-line > span { display: inline-block; will-change: transform; }
 
+/* ---------- demo / for-sale mode ---------- */
+@keyframes sheen { to { left: 150%; } }
+/* deter casual image saving while the demo is public */
+body.demo-mode img,
+body.demo-mode video,
+body.demo-mode canvas {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 /* ---------- 3D map markers ---------- */
 /* OrbitControls sets touch-action:none inline; let vertical swipes still scroll the page */
 .anatomy-canvas, .anatomy-canvas * { touch-action: pan-y !important; }

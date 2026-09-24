@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="md:col-span-5">
             <Logo />
             <p className="mt-6 max-w-sm leading-relaxed text-muted">
-              Expert physiotherapy and doctor-led aesthetics in I-8 Markaz, Islamabad, led by {clinic.founder}. Open 24 hours, with home visits across the city.
+              Expert physiotherapy and doctor-led aesthetics in {clinic.area}, led by {clinic.founder}. {clinic.hoursShort}, with home visits across {clinic.city}.
             </p>
             <p className="eyebrow mt-6 text-clay">{clinic.motto.join(" · ")}</p>
           </div>
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
 
         <p aria-hidden className="display mt-20 select-none whitespace-nowrap text-center text-[16vw] leading-[0.85] text-evergreen/90 xl:text-[14rem]">
-          Medicos <em className="text-clay">Life</em>
+          {clinic.name.split(" ")[0]} <em className="text-clay">{clinic.name.split(" ").slice(1).join(" ") || clinic.descriptor.split(" ")[0]}</em>
         </p>
 
         <div className="mt-10 flex flex-col justify-between gap-4 border-t border-ink/10 pt-6 text-sm text-muted md:flex-row">

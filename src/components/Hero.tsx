@@ -4,10 +4,12 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { Pause, Play, Star, CalendarCheck } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { clinic, FOUNDER_AVATAR, HERO_POSTER, HERO_VIDEO, px } from "@/lib/content";
+import { clinic, HERO_AVATARS, HERO_POSTER, HERO_VIDEO } from "@/lib/content";
 import { reviewStats } from "@/lib/reviews";
 import SplitHeading from "./ui/SplitHeading";
 import Button from "./ui/Button";
+import { DEMO } from "@/lib/site";
+import { DemoTag } from "./demo/Watermark";
 
 export default function Hero() {
   const root = useRef<HTMLElement>(null);
@@ -73,6 +75,7 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-pine/90 via-pine/35 to-pine/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-pine/70 via-transparent to-transparent" />
+        {DEMO && <DemoTag className="bottom-5 right-6 lg:bottom-8" />}
 
         <div className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-10 md:px-8 md:pb-16">
           <div className="hero-copy max-w-3xl text-cream">
@@ -89,7 +92,7 @@ export default function Hero() {
               className="text-[clamp(3.2rem,9vw,7.8rem)]"
             />
             <p className="hero-fade mt-6 max-w-xl text-base leading-relaxed text-cream/80 md:text-lg">
-              Expert physiotherapy and doctor-led aesthetics under one calm roof in I-8 Markaz, Islamabad. Open 24 hours, with home visits when you can&apos;t come to us.
+              Expert physiotherapy and doctor-led aesthetics under one calm roof in {clinic.area}. {clinic.hoursShort}, with home visits when you can&apos;t come to us.
             </p>
             <div className="hero-fade mt-8 flex flex-wrap items-center gap-3">
               <Button href="#book" variant="clay">
@@ -109,7 +112,7 @@ export default function Hero() {
                   <span className="absolute -right-0.5 -top-0.5 size-3 animate-pulse rounded-full bg-emerald-400 ring-2 ring-pine" />
                 </span>
                 <div>
-                  <p className="text-xs text-cream/70">Open now · 24/7</p>
+                  <p className="text-xs text-cream/70">Open now · {clinic.hoursBadge}</p>
                   <p className="font-semibold">{clinic.area}</p>
                 </div>
               </div>
@@ -117,7 +120,7 @@ export default function Hero() {
                 href={clinic.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 flex items-center justify-between rounded-2xl bg-white/10 px-4 py-2.5 text-sm transition hover:bg-white/20"
+                className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-white/10 px-4 py-2.5 text-sm transition hover:bg-white/20"
               >
                 <span className="whitespace-nowrap">Home visits available</span>
                 <span className="whitespace-nowrap text-blush">WhatsApp →</span>
@@ -125,7 +128,7 @@ export default function Hero() {
             </div>
             <div className="hero-card glass pointer-events-auto flex w-72 items-center gap-4 rounded-3xl p-4 text-cream">
               <div className="flex -space-x-3">
-                {[FOUNDER_AVATAR, px(5738735, 120), px(36665076, 120)].map((src) => (
+                {HERO_AVATARS.map((src) => (
                   <Image
                     key={src}
                     src={src}

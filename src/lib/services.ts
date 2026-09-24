@@ -1,6 +1,8 @@
-import { px } from "./content";
+import { px } from "./images";
+import { profile } from "./data";
 
-// The clinic's services. Prices are indicative "from" rates and should be confirmed by the clinic.
+// Shared service copy. Prices, a few images and locale-specific wording come from the active
+// profile (src/lib/data), so the demo and the real clinic can differ without duplicating content.
 
 export type ServiceCategory = "physio" | "aesthetic";
 
@@ -22,7 +24,7 @@ export type Service = {
   size?: "xl" | "wide" | "tall";
 };
 
-export const physio: Service[] = [
+const physioBase: Service[] = [
   {
     id: "stroke",
     category: "physio",
@@ -85,7 +87,7 @@ export const physio: Service[] = [
     id: "knee",
     category: "physio",
     title: "Knee Pain & Arthritis",
-    tagline: "Climb stairs and pray comfortably again",
+    tagline: "Climb stairs and sit comfortably again",
     about:
       "Knee osteoarthritis is one of the most common problems we see, along with ligament and meniscus injuries. Strengthening the muscles around the knee reduces pain and protects the joint.",
     helps: ["Knee osteoarthritis", "Pain on stairs, squatting or sitting on the floor", "ACL and meniscus injuries", "Swelling and stiffness", "Runner's knee"],
@@ -99,9 +101,9 @@ export const physio: Service[] = [
     id: "sports",
     category: "physio",
     title: "Sports Injury Rehab",
-    tagline: "Cricket, football, gym and running injuries",
+    tagline: "Football, gym, running and racket-sport injuries",
     about:
-      "Milestone-based rehab that gets you back to your sport stronger, whether it's a sprained ankle from futsal, a bowler's shoulder or an ACL reconstruction.",
+      "Milestone-based rehab that gets you back to your sport stronger, whether it's a sprained ankle, an overhead-throwing shoulder or an ACL reconstruction.",
     helps: ["Ankle and knee sprains", "Muscle strains and tears", "Tennis and golfer's elbow", "ACL and ligament rehab", "Return-to-sport testing"],
     expect: ["Injury assessment", "Hands-on treatment and taping", "Progressive strength and agility work", "A clear return-to-play plan"],
     duration: "45–60 min",
@@ -122,7 +124,7 @@ export const physio: Service[] = [
     duration: "60 min",
     sessions: "Usually 6–12 weeks",
     from: "Rs 4,000",
-    img: px(14797757, 1100),
+    img: px(20860595, 1100),
   },
   {
     id: "cupping",
@@ -130,7 +132,7 @@ export const physio: Service[] = [
     title: "Cupping & Dry Needling",
     tagline: "Release tight muscles and trigger points",
     about:
-      "Clinical cupping (hijama-style dry cupping) and dry needling release knotted muscles and trigger points, used alongside exercise for faster relief.",
+      "Clinical dry cupping and dry needling release knotted muscles and trigger points, used alongside exercise for faster relief.",
     helps: ["Muscle knots and trigger points", "Neck and shoulder tension", "Sports muscle tightness", "Chronic back pain"],
     expect: ["Assessment of trigger points", "Sterile, single-use needles", "Dry cupping with medical cups", "Stretching and exercise follow-up"],
     duration: "30–45 min",
@@ -158,31 +160,31 @@ export const physio: Service[] = [
     title: "Home Physiotherapy",
     tagline: "A qualified physiotherapist at your doorstep",
     about:
-      "For patients who can't easily travel: elders, stroke survivors and people recovering from surgery. Home visits are available across Islamabad, with male and female physiotherapists.",
+      "For patients who can't easily travel: elderly patients, stroke survivors and people recovering from surgery. Home visits are available across the city, with male and female physiotherapists.",
     helps: ["Elderly and bed-bound patients", "Stroke and paralysis care", "Post-operative recovery", "Mobility and fall prevention"],
     expect: ["Assessment in your home", "Exercises using what you have at home", "Carer and family guidance", "Flexible timings, 7 days a week"],
     duration: "60 min",
     sessions: "As needed",
     from: "Rs 5,000",
-    img: px(35011657, 1400),
+    img: px(7235063, 1400),
     size: "wide",
   },
 ];
 
-export const aesthetic: Service[] = [
+const aestheticBase: Service[] = [
   {
     id: "laser-hair",
     category: "aesthetic",
     title: "Laser Hair Removal",
-    tagline: "Smooth skin that lasts, safe for desi skin tones",
+    tagline: "Smooth skin that lasts, safe for every skin tone",
     about:
-      "Medical-grade laser targets hair at the root for long-term reduction. Settings are tailored to South Asian skin types to protect your skin while giving effective results.",
+      "Medical-grade laser targets hair at the root for long-term reduction. Settings are tailored to your skin type to protect your skin while giving effective results.",
     helps: ["Face, upper lip and chin", "Underarms and bikini line", "Arms, legs and back", "Ingrown hairs and razor bumps", "PCOS-related facial hair"],
     expect: ["Patch test and skin-type assessment", "Quick sessions with a cooling tip", "Sessions spaced 4–6 weeks apart", "Visible reduction after a few sessions"],
     duration: "15–60 min",
     sessions: "Usually 6–8 sessions",
     from: "Rs 4,000 / area",
-    img: px(11816689, 1600),
+    img: px(3985354, 1600),
   },
   {
     id: "prp",
@@ -256,4 +258,10 @@ export const aesthetic: Service[] = [
   },
 ];
 
+/** Apply the active profile's price / image / wording overrides */
+const withProfile = (list: Service[]): Service[] =>
+  list.map((s) => ({ ...s, ...(profile.services[s.id] ?? {}) }));
+
+export const physio = withProfile(physioBase);
+export const aesthetic = withProfile(aestheticBase);
 export const allServices = [...physio, ...aesthetic];

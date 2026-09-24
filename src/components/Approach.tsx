@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { Check, X } from "lucide-react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { px } from "@/lib/content";
+import { clinic, sectionImages } from "@/lib/content";
 import SplitHeading from "./ui/SplitHeading";
 import Reveal from "./ui/Reveal";
 import TiltCard from "./ui/TiltCard";
@@ -49,20 +49,20 @@ export default function Approach() {
       <div className="mx-auto grid max-w-7xl gap-16 px-5 md:px-8 lg:grid-cols-12 lg:gap-10">
         <div className="relative lg:col-span-5">
           <div className="approach-img-a relative aspect-[4/5] w-[85%] overflow-hidden rounded-5xl">
-            <Image src={px(14797760, 1200)} alt="A physiotherapist explaining spine health to a patient" fill sizes="(min-width:1024px) 35vw, 85vw" className="object-cover" />
+            <Image src={sectionImages.approachMain} alt="A physiotherapist explaining spine health to a patient" fill sizes="(min-width:1024px) 35vw, 85vw" className="object-cover" />
           </div>
           <div className="approach-img-b absolute -bottom-10 right-0 w-[48%]">
             <TiltCard max={14} className="aspect-[3/4]">
               <div className="relative h-full overflow-hidden rounded-4xl ring-8 ring-cream">
-                <Image src={px(35576577, 800)} alt="A smiling woman with healthy, glowing skin" fill sizes="25vw" className="object-cover object-top" />
+                <Image src={sectionImages.approachInset} alt="A smiling woman with healthy, glowing skin" fill sizes="25vw" className="object-cover object-top" />
               </div>
             </TiltCard>
           </div>
           <div className="absolute -left-2 top-10 animate-float rounded-2xl bg-white px-5 py-4 shadow-xl shadow-ink/10 md:-left-6">
-            <p className="display text-4xl text-evergreen">24/7</p>
-            <p className="text-xs text-muted">care in I-8 Markaz,
+            <p className="display text-3xl text-evergreen">{clinic.hoursBadge}</p>
+            <p className="text-xs text-muted">care in
               <br />
-              Islamabad</p>
+              {clinic.area}</p>
           </div>
         </div>
 

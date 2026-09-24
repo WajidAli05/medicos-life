@@ -59,7 +59,7 @@ export default function Booking() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const lines = [
-      "Assalam o Alaikum, I'd like to book an appointment at Medicos Life.",
+      `Hello, I'd like to book an appointment at ${clinic.name}.`,
       `Name: ${f.get("name")}`,
       `Phone: ${f.get("phone")}`,
       `Treatment: ${f.get("treatment") || "Not sure yet"}`,
@@ -95,7 +95,7 @@ export default function Booking() {
               className="text-[clamp(2.6rem,6vw,5.2rem)]"
             />
             <p className="mt-6 max-w-md leading-relaxed text-cream/75">
-              Tell us what you need and we&apos;ll confirm a time on WhatsApp. We&apos;re open 24 hours, and home visits can be arranged anywhere in Islamabad.
+              Tell us what you need and we&apos;ll confirm a time on WhatsApp. {clinic.hoursShort}, and home visits can be arranged across {clinic.city}.
             </p>
 
             <ul className="mt-12 space-y-5 text-cream/85">
@@ -126,7 +126,7 @@ export default function Booking() {
 
             <div className="mt-10 overflow-hidden rounded-3xl ring-1 ring-cream/15">
               <iframe
-                title="Map to Medicos Life, Aesthetic and Physio Clinic, I-8 Markaz, Islamabad"
+                title={`Map to ${clinic.name}, ${clinic.address}`}
                 src={clinic.mapsEmbed}
                 className="h-56 w-full grayscale-[40%] contrast-[1.05]"
                 loading="lazy"
@@ -162,8 +162,8 @@ export default function Booking() {
                   </div>
                   <label className="block">
                     <span className="mb-2 block text-xs text-cream/70">Where would you like to be seen?</span>
-                    <select name="visit" className={`${field} appearance-none`} defaultValue="At the clinic (I-8 Markaz)">
-                      <option className="text-ink">At the clinic (I-8 Markaz)</option>
+                    <select name="visit" className={`${field} appearance-none`} defaultValue={`At the clinic (${clinic.area})`}>
+                      <option className="text-ink">{`At the clinic (${clinic.area})`}</option>
                       <option className="text-ink">Home visit</option>
                     </select>
                   </label>
@@ -197,7 +197,7 @@ export default function Booking() {
                     <MessageCircle className="mr-2 inline size-5 -translate-y-px" />
                     Book on WhatsApp
                   </button>
-                  <p className="text-center text-xs text-cream/50">Prefer to talk? Call 0312 0997699, any time.</p>
+                  <p className="text-center text-xs text-cream/50">Prefer to talk? Call {clinic.phone}.</p>
                 </motion.form>
               )}
             </AnimatePresence>

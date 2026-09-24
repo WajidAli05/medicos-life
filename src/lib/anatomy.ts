@@ -248,7 +248,7 @@ export const facePoints: FacePoint[] = [
     teaser: "Unwanted facial hair",
     pain: ["Visible upper-lip hair", "Irritation from threading or waxing", "Regrowth within days"],
     causes: ["Genetics", "Hormonal changes and PCOS", "Frequent threading thickening regrowth"],
-    care: "Laser hair removal for long-term reduction, set for desi skin tones.",
+    care: "Laser hair removal for long-term reduction, set for your skin tone.",
     treatment: "Laser Hair Removal",
     tags: ["Hair"],
   },
